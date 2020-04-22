@@ -1,0 +1,36 @@
+# language target
+language: cpp
+compiler: gcc
+
+name: "Bionic Ubuntu Linux"
+os: linux
+dist: bionic
+sudo: required
+
+addons:	
+  apt:
+    packages:
+      - make
+      - git
+      - gcc
+      - qt5-default	
+      - qtmultimedia5-dev	
+      - libogg-dev	
+      - libopus-dev
+      - libgl1-mesa-dev
+
+script: 
+  - git clone https://github.com/fperdigon/Ultracopier.git
+  - cd Ultracopier
+  - find ./ -name '*.ts' -exec lrelease {} \; 
+  - qmake ./ultracopier.pro
+  - make -j$(nproc)
+  
+# deploy to Github
+after_success:
+  # listing the result
+  - ls -lh 
+  # get the tag version
+  - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+  - export GITHUB_TOKEN="$OAUTHTOKEN"
+  - bash upload.sh ultracopier
