@@ -41,4 +41,9 @@ cache:
 
 script:
   - qmake --version
+  - git clone https://github.com/fperdigon/Ultracopier.git
+  - cd Ultracopier
+  #- find ./ -name '*.ts' -exec lrelease {} \; 
+  - qmake ultracopier.pro
+  - make
  
