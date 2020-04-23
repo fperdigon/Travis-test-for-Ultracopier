@@ -45,5 +45,5 @@ script:
   - cd Ultracopier
   #- find ./ -name '*.ts' -exec lrelease {} \; 
   - qmake ultracopier.pro
-  - make
+  - $MAKE
  
